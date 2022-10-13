@@ -24,8 +24,8 @@
 \usepackage{physics}
 \usepackage{color}
 \usepackage{siunitx}
-\usepackage[sorting=none]{biblatex}
-\addbibresource{Bibliography.bib}
+\usepackage[style=apa,backend=biber]{biblatex}
+\addbibresource{export.bib}
 \renewcommand{\baselinestretch}{1.5}
 \setlength{\parskip}{0.4cm}
 \pagestyle{fancy}
@@ -70,7 +70,7 @@
 
 \end{center}
 \begin{abstract}
-    Here goes the abstract
+    In this experiment, the implementation of powerful circuit theorems is explored. The superposition principle and Thévenin equivalent theorem are proved with specific scenarios. The first one being a computer simulation using \ltspice, while the second one an actual circuit built in the lab. Also, the usage of a voltage buffer is implemented to reduce the load that the waveform has on a speaker circuit, which provided a deep understanding of how such devices work.
 \end{abstract}
 \newpage
 \section{Objectives}
@@ -90,7 +90,7 @@ In this  last experiment, the objective is to utilize a voltage buffer to reduce
 \subsection{Superposition principle}
 \subsubsection{Linear system}
 
-Linear systems are systems in which the element relating the input and output of the system has two defining properties: scalability and additivity.
+Linear systems are systems in which the element relating the input and output of the system has two defining properties: scalability and additivity \parencite[54-56]{Balmos2019}.
 
 Scalability means that the if the input is a scalar multiple of some function, we can evaluate the system without the scalar and multiply the result by the scalar. Suppose we have a function $f(x)$ that takes the input $x(t)$ and produces an output $f\{x(t)\}$. Then, scalability would mean that
 
@@ -158,7 +158,7 @@ Note, now that we have Figure (\ref{fig:1a}), we can transform it into an equiva
     \caption{Norton equivalent circuit}
 \end{figure}
 
-The proof of such general statements in beyond the scope of this report, but they follow from the concept of superposition.
+The proof of such general statements in beyond the scope of this report, but they follow from the concept of superposition \parencite[60-62]{Balmos2019}.
 
 \subsection{Voltage buffers and ICs}
 \subsubsection{Voltage Buffers}
@@ -299,16 +299,16 @@ With the new circuit, the same measurements of output voltage were made. Also we
 
 Finally, with the given value of the speaker's resistance being \SI{8}{\ohm}, we estimated the equivalent circuit of Figure (\ref{fig:7}).
 
-Note that the schematic of figure (\ref{fig:8}) is an adaptation of the real schematic needed with the IC the experiment is going to use. From the original web page, the IC has the following schematic.
+Note that the schematic of figure (\ref{fig:8}) is an adaptation of the real schematic needed with the IC the experiment is going to use. From the original web page, the IC has the following schematic \parencite[11]{manual}.
 
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.33]{pinout.png}
-    \caption{\textit{LF365N} pin schematic}
+    \caption{\textit{LF365N} pin schematic }
     \label{fig:91}
 \end{figure}
 
-From here, the pins 1 and 5 are not used in the actual experiment, and the labels $V+,V-$ will correspond to $V_{cc}$ and $V_{ss}$ respectively.
+From here, the pins 1 and 5 are not used in the actual experiment, and the labels $V+,V-$ will correspond to $V_{ss}$ and $V_{cc}$ respectively.
 
 \section{Results}
 
@@ -377,7 +377,7 @@ Another approach to this result is that the voltage at a time $t$ $V(t)$ can be 
 
 Where $\alpha,\beta,\gamma$ are constants.
 
-To find such constant we can take advantage of the results when only one of the sources was one, for example
+To find such constant we can take advantage of the results when only one of the sources was on, for example
  \begin{align*}
     V_\text{out, source 1} &= \alpha V_\text{Source 1}\\
      \SI{1}{\volt} &= \alpha \SI{2.25}{\volt}\\
@@ -393,7 +393,8 @@ To find such constant we can take advantage of the results when only one of the 
 
  Such that the final equation for $V(t)$ is
  \begin{align*}
-     V(t) = \SI{1}{\volt} + 2tri(2\pi10000t) \SI{}{\volt} + 200\sin(2\pi10000t) \SI{}{\milli\volt}.
+    V(t) &= (0.4444)\SI{2.25}{\volt} + (0.4444)4.5tri(2\pi1000t) \SI{}{\volt} + (0.0556)3.6\sin(2\pi10000t) \SI{}{\volt}\\
+     V(t) &= \SI{1}{\volt} + 2tri(2\pi10000t) \SI{}{\volt} + 200\sin(2\pi10000t) \SI{}{\milli\volt}.
  \end{align*}
  \newpage
 \subsection{Thévenin equivalent circuit design and generalizing a procedure to find Thévenin equivalent}
@@ -463,16 +464,22 @@ R_1 = R_2 = R_3 &= \SI{1}{\kilo\ohm}
 }
 \end{align*}
 
-With the values calcualted, the circuit was built, find the picture below 
+With the values calculated, the circuit was built, find the picture below 
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.35]{20221012_202819.jpg}
+    \caption{Circuit build for experiment 2}
+    \label{fig:16}
+\end{figure}
 
-For the general procedure, the following method was develop
+For the general procedure, the following method was developed
 
 \begin{enumerate}
     \item Locate the two ports used to calculate the equivalent circuit
     \item Measure the voltage across them by connecting a voltmeter, this will be $V_{th}$
     \item Measure the current across the two ports with an ammeter
-    \item Calcuate the equivalent resistance by dividing the value from the voltmeter by the current, this will be $R_{eq}$
+    \item Calculate the equivalent resistance by dividing the value from the voltmeter by the current, this will be $R_{eq}$
 \end{enumerate}
 
 Applying this method to the circuit, the reuslts were
@@ -517,7 +524,7 @@ The circuit in Figure (\ref{fig:6}) was built, when the waveform was turned on t
     \label{tab:3}
 \end{table}
 \newpage
-This results indicate the present of some load, since if the circuit was just like the one described in the procedure, the error should not be as big. This is probably because there is a load of the source not accounted for, meaning that the actual circuit would be some of the form
+This results indicate the presence of some load, since if the circuit was just like the one described in the procedure, the error should not be as big. This is probably because there is a load of the source not accounted for, meaning that the actual circuit would be some of the form
 
 \begin{figure}[h]
     \centering
@@ -558,7 +565,7 @@ Now, in order to estimate the equivalent circuit, lets consider the following ci
         \draw (4,0) to [short,-o] (5,0) node[] (-sign) ;
         \draw (-sign) to [open,v<=$V_{out}$](+sign) ;
     \end{circuitikz}
-    \caption{Caption}
+    \caption{Equivalent circuit for experiment 3 }
     \label{fig:my_label}
 \end{figure}
 
@@ -568,7 +575,7 @@ Using the calculated values, a trivial computation follows (voltage division)
     V_{out} &= V_{in} \frac{\SI{8}{\ohm}}{ \SI{8}{\ohm} + R_{th}}\\
     R_{th} &= \frac{V_{in}\SI{8}{\ohm}}{V_{out}} - \SI{8}{\ohm}\\
     R_{th} &= \frac{\SI{0.17646}{\volt}\cdot\SI{8}{\ohm}}{\SI{0.15393}{\volt}} - \SI{8}{\ohm}\\
-    \Aboxed{R_{th} &\approx \SI{1.17092}{\ohm}}
+    \Aboxed{R_{th} &\approx \SI{1.17092}{\ohm}.}
 \end{align*}
 
 \newpage
@@ -577,4 +584,7 @@ Using the calculated values, a trivial computation follows (voltage division)
 In this report, powerful concepts of Electrical Engineering were checked and understood, by verifying the superposition principles and Norton Equivalent theorem, I can now apply the knowledge to virtually any linear circuit. These two concepts merged into the final experiment, where an equivalent circuit was built. Overall, all the objectives were accomplished since the theorems were verified.
 
 Finally, the understanding of how an op amp or voltage buffer works is a key concept, since the over-simplified models presented in theory are not always enough to produce a practical result. In these scenarios, knowing how to use the voltage buffer to reduce the load of the source is a major concept to understand.
+
+\newpage
+\printbibliography
 \end{document}
